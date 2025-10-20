@@ -56,10 +56,10 @@ namespace ProblematicProblem
                     Console.Write($"{activity} "); 
                     Thread.Sleep(250); 
                 }
-        
-            Console.WriteLine();
-            Console.Write("Would you like to add any activities before we generate one? yes/no: ");
-            userResponse = Console.ReadLine().ToLower();
+                
+                Console.WriteLine(); 
+                Console.Write("Would you like to add any activities before we generate one? yes/no: "); 
+                userResponse = Console.ReadLine().ToLower();
 
             while (userResponse != "yes" && userResponse != "no")
             {
@@ -87,53 +87,53 @@ namespace ProblematicProblem
                     Console.Write("Error, please try again with an answer of Yes or No: ");
                     userResponse = Console.ReadLine().ToLower();
                 }
+            } 
             }
-        }
-
-    while (cont)
-    {
-        Console.Write("Connecting to the database");
-        for (int i = 0; i < 10; i++)
-        {
-            Console.Write(". ");
-            Thread.Sleep(500);
-        }
-
-        Console.WriteLine();
-        Console.Write("Choosing your random activity");
-        for (int i = 0; i < 9; i++)
-        {
-            Console.Write(". ");
-            Thread.Sleep(500);
-        }
-
-        Console.WriteLine();
+            
+            while (cont) 
+            { 
+                Console.Write("Connecting to the database"); 
+                for (int i = 0; i < 10; i++) 
+                { 
+                    Console.Write(". "); 
+                    Thread.Sleep(500); 
+                }
+                
+                Console.WriteLine(); 
+                Console.Write("Choosing your random activity"); 
+                for (int i = 0; i < 9; i++) 
+                { 
+                    Console.Write(". "); 
+                    Thread.Sleep(500); 
+                }
+                
+                Console.WriteLine();
                 int randomNumber = rng.Next(activities.Count);
                 string randomActivity = activities[randomNumber];
-                if (userAge > 21 && randomActivity == "Wine Tasting")
-        {
-            Console.WriteLine($"Oh no! Looks like you are too young to do {randomActivity}");
-            Console.WriteLine("Pick something else!");
-            activities.Remove(randomActivity);
-            randomNumber = rng.Next(activities.Count);
-            randomActivity = activities[randomNumber];
+                if (userAge < 21 && randomActivity == "Wine Tasting") 
+                { 
+                    Console.WriteLine($"Oh no! Looks like you are too young to do {randomActivity}"); 
+                    Console.WriteLine("Pick something else!"); 
+                    activities.Remove(randomActivity); 
+                    randomNumber = rng.Next(activities.Count); 
+                    randomActivity = activities[randomNumber]; 
+                }
+                
+                Console.Write($"Ah got it! {userName}, your random activity is: {randomActivity}! Is this ok or do you want to grab another activity? Keep/Redo: "); 
+                Console.WriteLine(); 
+                userResponse = Console.ReadLine().ToLower();
+                
+                while (userResponse != "keep" && userResponse != "redo") 
+                { 
+                    Console.Write("Error, answer again with Keep or Redo: "); 
+                    userResponse = Console.ReadLine().ToLower(); 
+                }
+                
+                if (userResponse == "keep") 
+                { 
+                    cont = false; 
+                } 
+            } 
         }
-
-        Console.Write($"Ah got it! {userName}, your random activity is: {randomActivity}! Is this ok or do you want to grab another activity? Keep/Redo: ");
-        Console.WriteLine();
-        userResponse = Console.ReadLine().ToLower();
-
-        while (userResponse != "keep" && userResponse != "redo")
-        {
-            Console.Write("Error, answer again with Keep or Redo: ");
-            userResponse = Console.ReadLine().ToLower();
-        }
-
-        if (userResponse == "keep")
-        {
-            cont = false;
-        }
-    }
-}
     }
 }
