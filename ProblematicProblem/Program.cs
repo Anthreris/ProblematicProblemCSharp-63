@@ -6,28 +6,29 @@ namespace ProblematicProblem
 {
     public class Program
     {
-        public static Random rng = new Random();
-        public static bool cont = true;
-        
-        public static List<string> activities = new List<string>()
+        static Random rng = new Random();
+        static bool cont = true;
+        static string userResponse = Console.ReadLine().ToLower();
+
+        private static List<string> activities = new List<string>()
             { "Movies", "Paintball", "Bowling", "Lazer Tag", "LAN Party", "Hiking", "Axe Throwing", "Wine Tasting" };
+
         static void Main(string[] args)
-        { 
+        {
             Console.Write("Hello, welcome to the random activity generator! \nWould you like to generate a random activity? yes/no: ");
-            var userResponse = Console.ReadLine().ToLower();
 
             while (userResponse != "yes" && userResponse != "no")
             {
                 Console.Write("Error, please try again with your answer being Yes or No.");
                 userResponse = Console.ReadLine().ToLower();
             }
-            
+
             if (userResponse == "no")
             {
                 Console.WriteLine("Understood, have a good day");
                 return;
             }
-            
+
             Console.WriteLine();
             Console.Write("We are going to need your information first! What is your name? ");
             string userName = Console.ReadLine();
@@ -38,7 +39,7 @@ namespace ProblematicProblem
             {
                 Console.Write("Error, please try again with an age in numerical form: ");
             }
-            
+
             Console.WriteLine();
             Console.Write("Would you like to see the current list of activities? Sure/No thanks: ");
             userResponse = Console.ReadLine().ToLower();
@@ -48,38 +49,17 @@ namespace ProblematicProblem
                 Console.Write("Error, please try again with your answer as Sure or No thanks: ");
                 userResponse = Console.ReadLine().ToLower();
             }
-            
-            if (userResponse == "sure") 
-            { 
-                foreach (string activity in activities) 
-                { 
-                    Console.Write($"{activity} "); 
-                    Thread.Sleep(250); 
-                }
-                
-                Console.WriteLine(); 
-                Console.Write("Would you like to add any activities before we generate one? yes/no: "); 
-                userResponse = Console.ReadLine().ToLower();
 
-            while (userResponse != "yes" && userResponse != "no")
+            if (userResponse == "sure")
             {
-                Console.Write("Error, please try again with an answer of Yes or No: ");
-                userResponse = Console.ReadLine().ToLower();
-            }
-            
-            Console.WriteLine();
-            while (userResponse == "yes") 
-            { 
-                Console.Write("What would you like to add? "); 
-                string userAddition = Console.ReadLine(); 
-                activities.Add(userAddition); 
-                foreach (string activity in activities) 
-                { 
-                    Console.Write($"{activity} "); 
-                    Thread.Sleep(250); 
-                } 
-                Console.WriteLine(); 
-                Console.WriteLine("Would you like to add more? yes/no: "); 
+                foreach (string activity in activities)
+                {
+                    Console.Write($"{activity} ");
+                    Thread.Sleep(250);
+                }
+
+                Console.WriteLine();
+                Console.Write("Would you like to add any activities before we generate one? yes/no: ");
                 userResponse = Console.ReadLine().ToLower();
 
                 while (userResponse != "yes" && userResponse != "no")
@@ -87,53 +67,77 @@ namespace ProblematicProblem
                     Console.Write("Error, please try again with an answer of Yes or No: ");
                     userResponse = Console.ReadLine().ToLower();
                 }
-            } 
-            }
-            
-            while (cont) 
-            { 
-                Console.Write("Connecting to the database"); 
-                for (int i = 0; i < 10; i++) 
-                { 
-                    Console.Write(". "); 
-                    Thread.Sleep(500); 
-                }
-                
-                Console.WriteLine(); 
-                Console.Write("Choosing your random activity"); 
-                for (int i = 0; i < 9; i++) 
-                { 
-                    Console.Write(". "); 
-                    Thread.Sleep(500); 
-                }
-                
+
                 Console.WriteLine();
-                int randomNumber = rng.Next(activities.Count);
-                string randomActivity = activities[randomNumber];
-                if (userAge < 21 && randomActivity == "Wine Tasting") 
-                { 
-                    Console.WriteLine($"Oh no! Looks like you are too young to do {randomActivity}"); 
-                    Console.WriteLine("Pick something else!"); 
-                    activities.Remove(randomActivity); 
-                    randomNumber = rng.Next(activities.Count); 
-                    randomActivity = activities[randomNumber]; 
+                while (userResponse == "yes")
+                {
+                    Console.Write("What would you like to add? ");
+                    string userAddition = Console.ReadLine();
+                    activities.Add(userAddition);
+                    foreach (string activity in activities)
+                    {
+                        Console.Write($"{activity} ");
+                        Thread.Sleep(250);
+                    }
+
+                    Console.WriteLine();
+                    Console.WriteLine("Would you like to add more? yes/no: ");
+                    userResponse = Console.ReadLine().ToLower();
+
+                    while (userResponse != "yes" && userResponse != "no")
+                    {
+                        Console.Write("Error, please try again with an answer of Yes or No: ");
+                        userResponse = Console.ReadLine().ToLower();
+                    }
+
                 }
-                
-                Console.Write($"Ah got it! {userName}, your random activity is: {randomActivity}! Is this ok or do you want to grab another activity? Keep/Redo: "); 
-                Console.WriteLine(); 
-                userResponse = Console.ReadLine().ToLower();
-                
-                while (userResponse != "keep" && userResponse != "redo") 
-                { 
-                    Console.Write("Error, answer again with Keep or Redo: "); 
-                    userResponse = Console.ReadLine().ToLower(); 
+
+                while (cont)
+                {
+                    Console.Write("Connecting to the database");
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Console.Write(". ");
+                        Thread.Sleep(500);
+                    }
+
+                    Console.WriteLine();
+                    Console.Write("Choosing your random activity");
+                    for (int i = 0; i < 9; i++)
+                    {
+                        Console.Write(". ");
+                        Thread.Sleep(500);
+                    }
+
+                    Console.WriteLine();
+                    int randomNumber = rng.Next(activities.Count);
+                    string randomActivity = activities[randomNumber];
+                    if (userAge < 21 && randomActivity == "Wine Tasting")
+                    {
+                        Console.WriteLine($"Oh no! Looks like you are too young to do {randomActivity}");
+                        Console.WriteLine("Pick something else!");
+                        activities.Remove(randomActivity);
+                        randomNumber = rng.Next(activities.Count);
+                        randomActivity = activities[randomNumber];
+                    }
+
+                    Console.Write(
+                        $"Ah got it! {userName}, your random activity is: {randomActivity}! Is this ok or do you want to grab another activity? Keep/Redo: ");
+                    Console.WriteLine();
+                    userResponse = Console.ReadLine().ToLower();
+
+                    while (userResponse != "keep" && userResponse != "redo")
+                    {
+                        Console.Write("Error, answer again with Keep or Redo: ");
+                        userResponse = Console.ReadLine().ToLower();
+                    }
+
+                    if (userResponse == "keep")
+                    {
+                        cont = false;
+                    }
                 }
-                
-                if (userResponse == "keep") 
-                { 
-                    cont = false; 
-                } 
-            } 
+            }
         }
-    }
+    } 
 }
